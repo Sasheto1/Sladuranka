@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>За теб ❤️</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffd6e7, #fff0f5);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+}
+
+/* ПОДАРЪК */
+
+.gift {
+    position: relative;
+    width: 220px;
+    height: 180px;
+    cursor: pointer;
+    margin: auto;
+}
+
+.gift:hover {
+    transform: scale(1.05);
+}
+
+/* КУТИЯ */
+
+.box {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 200px;
+    height: 130px;
+    background: #ff6f91;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ЖЪЛТА ЛЕНТА */
+
+.ribbon-vertical {
+    position: absolute;
+    left: 75px;
+    bottom: 0;
+    width: 50px;
+    height: 130px;
+    background: #ffd166;
+}
+
+.ribbon-horizontal {
+    position: absolute;
+    left: 0;
+    top: 45px;
+    width: 220px;
+    height: 35px;
+    background: #ffd166;
+}
+
+/* КАПАК */
+
+.lid {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 220px;
+    height: 45px;
+    background: #ff4f7b;
+    border-radius: 8px;
+    z-index: 10;
+    transition: transform 0.8s ease;
+}
+
+.lid::after {
+    content: "";
+    position: absolute;
+    left: 85px;
+    top: 0;
+    width: 50px;
+    height: 45px;
+    background: #ffd166;
+}
+
+/* РОЗА */
+
+.rose {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    font-size: 75px;
+    z-index: 5;
+
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px) scale(0);
+
+    transition: all 0.8s ease;
+}
+
+/* ТЕКСТ */
+
+.message {
+    margin-top: 25px;
+    font-size: 42px;
+    font-weight: bold;
+    color: #d6336c;
+
+    opacity: 0;
+    transform: scale(0.5);
+
+    transition: all 0.8s ease;
+}
+
+/* ПОДСКАЗКА */
+
+.hint {
+    margin-top: 20px;
+    color: #8a4058;
+    font-size: 17px;
+}
+
+/* КОГАТО ПОДАРЪКЪТ Е ОТВОРЕН */
+
+.gift.open .lid {
+    transform: translateY(-100px) rotate(-8deg);
+}
+
+.gift.open .rose {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-100px) scale(1);
+}
+
+.gift.open + .message {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* СЪРЦА */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    bottom: -30px;
+    animation: float 4s linear forwards;
+}
+
+@keyframes float {
+
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ПОДАРЪК -->
+
+    <div class="gift" id="gift">
+
+        <!-- РОЗА -->
+        <div class="rose">🌹</div>
+
+        <!-- КАПАК -->
+        <div class="lid"></div>
+
+        <!-- КУТИЯ -->
+        <div class="box">
+
+            <div class="ribbon-vertical"></div>
+
+            <div class="ribbon-horizontal"></div>
+
+        </div>
+
+    </div>
+
+    <!-- ТОВА Е ТЕКСТЪТ -->
+
+    <div class="message">
+        Обичам те праскоке &lt;3
+    </div>
+
+    <div class="hint">
+        Натисни подаръка 🎁
+    </div>
+
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+
+const gift = document.getElementById("gift");
+const hearts = document.getElementById("hearts");
+
+gift.onclick = function() {
+
+    gift.classList.toggle("open");
+
+    if (gift.classList.contains("open")) {
+
+        // СЪРЧИЦА
+        for (let i = 0; i < 25; i++) {
+
+            let heart = document.createElement("div");
+
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+
+            heart.style.left = Math.random() * 100 + "%";
+            heart.style.fontSize = (15 + Math.random() * 25) + "px";
+            heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+
+            hearts.appendChild(heart);
+
+            setTimeout(function() {
+                heart.remove();
+            }, 5000);
+        }
+
+    }
+
+};
+
+</script>
+
+</body>
+</html>
